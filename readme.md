@@ -18,4 +18,3 @@ Our proposed solution is to use this dataset to visualize correlations between c
 1. Data extraction and filtering: 1 week
 2. Visualization & Analysis: 2 weeks
 3. Gather results & prepare for presentation: 1 week
-
