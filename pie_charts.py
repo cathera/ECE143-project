@@ -99,7 +99,7 @@ ax1.pie(state_v, explode=state_e, labels=state_l, autopct='%1.1f%%',
         shadow=True, startangle=90)
 ax1.axis('equal')
 plt.title('Vehicle Accidents by State')
-
+plt.savefig('State_Pie_Chart.png', transparent=True)
 plt.show()
 
 fig2, ax2 = plt.subplots()
@@ -107,6 +107,7 @@ ax2.pie(county_v, explode=county_e, labels=county_l, autopct='%1.1f%%',
         shadow=True, startangle=90, radius=2)
 ax2.axis('equal')
 plt.title('Vehicle Accidents by County in California')
+plt.savefig('County_Pie.png', transparent=True)
 
 
 plt.show()
@@ -117,5 +118,6 @@ ax3.pie(severity_v,
 plt.legend(loc='best', labels=['%s, %1.1f%%' % (l, 100*s/total) for l, s in zip(severity_l, severity_v)])
 ax3.axis('equal')
 plt.title('Severity of Accidents')
-
+plt.savefig('Severity_Pie.png', transparent=True)
 plt.show()
+
