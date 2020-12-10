@@ -14,7 +14,46 @@ Our proposed solution is to use this dataset to visualize correlations between c
   - Time of day and traffic patterns
   - Traffic hotspots and high risk locations
 - What measure is most effective in decreasing traffic accidents?
-## Schedule
-1. Data extraction and filtering: 1 week
-2. Visualization & Analysis: 2 weeks
-3. Gather results & prepare for presentation: 1 week
+
+
+## File Structure
+```
+root
+├── data
+│   └── CA_County_Pop_Miles.csv
+│
+├── scripts
+│   ├── __init__.py
+│   ├── pie_charts.py
+│   ├── plot_for_capita.py
+│   ├── plot_for_sign.py
+│   ├── plot_for_time.py
+│   └── plot_for_weather.py
+│
+├── pics
+│
+└── Analysis-Overview.ipynb
+
+```
+## Third Party Modules
+- pandas==1.1.3
+- matplotlib==3.1.2
+- numpy==1.18.1
+- seaborn==0.11.0
+- altair==4.1.0
+- folium==0.11.0
+
+## How to Run the Code
+The `requirements.txt` file has listed all Python libraries that your notebooks
+depend on, and they will be installed using:
+
+```
+pip install -r requirements.txt
+```
+Then, you need to download the US-Accidents open dataset ( https://smoosavi.org/datasets/us_accidents ) and put the `US_Accidents_June20.csv` into data folder.
+
+All visualizations were produced in `Analysis-Overview.ipynb`. You can run the following command to see the result.
+
+```
+jupyter notebook Analysis-Overview.ipynb 
+```
