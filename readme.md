@@ -15,10 +15,6 @@ Our proposed solution is to use this dataset to visualize correlations between c
   - Traffic hotspots and high risk locations
 - What measure is most effective in decreasing traffic accidents?
 
-## Schedule
-1. Data extraction and filtering: 1 week
-2. Visualization & Analysis: 2 weeks
-3. Gather results & prepare for presentation: 1 week
 
 ## File Structure
 ```
@@ -54,8 +50,10 @@ depend on, and they will be installed using:
 ```
 pip install -r requirements.txt
 ```
+Then, you need to download the US-Accidents open dataset ( https://smoosavi.org/datasets/us_accidents ) and put the `US_Accidents_June20.csv` into data folder.
+
 All visualizations were produced in `Analysis-Overview.ipynb`. You can run the following command to see the result.
 
 ```
-jupyter notebook analysis-notebook.ipynb 
+jupyter notebook Analysis-Overview.ipynb 
 ```
