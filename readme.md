@@ -44,6 +44,7 @@ root
 - seaborn==0.11.0
 - altair==4.1.0
 - folium==0.11.0
+- geopy==2.0.0
 
 ## How to Run the Code
 The `requirements.txt` file has listed all Python libraries that your notebooks

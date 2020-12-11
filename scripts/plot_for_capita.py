@@ -23,26 +23,25 @@ def plot_capita_map(CA_data,path):
     sns.heatmap(corrMatrix, annot=True,annot_kws={"size":20})
     plt.show()
 
+    countyinfo['Pop_Density']=countyinfo['pop2020']/countyinfo['Square_Miles']
+    chart=Chart(countyinfo)
+    chart.mark_point().encode(y=alt.X('Accidents_Per_Square_Mile',axis=alt.Axis(title='Accidents Per Square Mile')),
+                          x=alt.Y('Pop_Density',axis=alt.Axis(title='Population Density'))).properties(
+    title='Accidents Per Sq Mile vs Population Density').interactive()
+    plt.show()
+    
     newdf=countyinfo[['Pop_Density','Accidents_Per_Capita']]
     corrMatrix = newdf.corr()
     sns.heatmap(corrMatrix, annot=True, annot_kws={"size":20})
     plt.show()
 
-    newdf=countyinfo[['Pop_Density','Accidents_Per_Capita','Accidents_Per_Square_Mile']]
-    corrMatrix = newdf.corr()
-    sns.heatmap(corrMatrix, annot=True, annot_kws={"size":1})
+    countyinfo['Pop_Density']=countyinfo['pop2020']/countyinfo['Square_Miles']
+    chart=Chart(countyinfo)
+    chart.mark_point().encode(y=alt.X('Accidents_Per_Capita',axis=alt.Axis(title='Accidents_Per_Capita')),
+                          x=alt.Y('Pop_Density',scale=alt.Scale(type='log'),axis=alt.Axis(title='Population Density (log(x))'))).properties(
+    title='Accidents Per Capita vs Population Density').interactive()
     plt.show()
-#     countyinfo['Pop_Density']=countyinfo['pop2020']/countyinfo['Square_Miles']
-#     chart=Chart(countyinfo)
-#     chart.mark_point().encode(y=alt.X('Accidents_Per_Capita',axis=alt.Axis(title='Accidents_Per_Capita')),
-#                               x=alt.Y('Pop_Density',scale=alt.Scale(type='log'),axis=alt.Axis(title='Population Density (log(x))'))).properties(
-#         title='Accidents Per Capita vs Population Density').interactive()
-    
-#     countyinfo['Pop_Density']=countyinfo['pop2020']/countyinfo['Square_Miles']
-# chart=Chart(countyinfo)
-# chart.mark_point().encode(y=alt.X('Accidents_Per_Square_Mile',axis=alt.Axis(title='Accidents Per Square Mile')),
-#                           x=alt.Y('Pop_Density',axis=alt.Axis(title='Population Density'))).properties(
-#     title='Accidents Per Sq Mile vs Population Density').interactive()
+
 
 def plot_Capita(CA_data,path):
     alt.renderers.enable('default')
@@ -99,6 +98,7 @@ def plot_Square(CA_data,path):
     plt.savefig(path+ "Pop_Density.png",transparent = True)
     
     plt.figure(figsize=(5,10))
+    
     g_five=countyinfo[countyinfo['Accidents_Per_Square_Mile']>12]
     ax=sns.barplot(x='Accidents_Per_Square_Mile',y='County', data=g_five,order=g_five.sort_values('Accidents_Per_Square_Mile',ascending=False).County, palette='tab10')
     plt.savefig(path+ "Accidents_Per_Square_Mile_2.png",transparent = True)
