@@ -1,7 +1,9 @@
 import pandas as pd
 from matplotlib import pyplot as plt
-import seaborn as sb
 import numpy as np
+import altair as alt
+from altair import Chart
+import seaborn as sns
 '''
 Code to generate pie_charts
 '''
@@ -75,49 +77,43 @@ def get_data(df,column,highlight='',exp=False):
         return labels,vals,explode
     else:
         return labels,vals
+
+def state_pie(data,path):
+    state_count=pd.DataFrame(data.groupby('State')['ID'].count())
+    top_state_count=get_top_n(state_count,4)
+    state_l,state_v,state_e=get_data(top_state_count,'ID','CA',exp=True)
+    fig1, ax1 = plt.subplots()
+    ax1.pie(state_v, explode=state_e, labels=state_l, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+    ax1.axis('equal')
+    plt.title('Vehicle Accidents by State')
+    plt.savefig(path+ 'State_Pie_Chart.png', transparent=True)
+    plt.show()
     
-    
-# data = pd.read_csv('./US_Accidents_June20.csv')
-# CA_data=data[data['State']=='CA']
-# state_count=pd.DataFrame(data.groupby('State')['ID'].count())
-# county_count=pd.DataFrame(CA_data.groupby('County')['ID'].count())
-# severity_count=pd.DataFrame(CA_data.groupby('Severity')['ID'].count())
+def county_pie(CA_data,path):
+    county_count=pd.DataFrame(CA_data.groupby('County')['ID'].count())
+    top_county_count=get_top_n(county_count,6)
+    county_l,county_v,county_e=get_data(top_county_count,'ID','San Diego',exp=True)
+    totalc=sum(county_v)
+    fig2, ax2 = plt.subplots()
+    ax2.pie(county_v,
+        shadow=True, startangle=90, radius=2)
+    plt.legend(loc='best',labels=['%s, %1.1f%%' % (l, 100*s/totalc) for l, s in zip(county_l, county_v)])
+    ax2.axis('equal')
+    plt.title('Vehicle Accidents by County in California')
+    plt.savefig(path+ 'County_Pie.png', transparent=True)
+    plt.show()
 
-
-# #State Data
-# top_state_count=get_top_n(state_count,4)
-# state_l,state_v,state_e=get_data(top_state_count,'ID','CA',exp=True)
-# #County Data
-# top_county_count=get_top_n(county_count,4)
-# county_l,county_v,county_e=get_data(top_county_count,'ID','San Diego',exp=True)
-# #Severity Data
-# severity_l,severity_v=get_data(severity_count,'ID')
-# total=sum(severity_v)
-
-# fig1, ax1 = plt.subplots()
-# ax1.pie(state_v, explode=state_e, labels=state_l, autopct='%1.1f%%',
-#         shadow=True, startangle=90)
-# ax1.axis('equal')
-# plt.title('Vehicle Accidents by State')
-# plt.savefig('State_Pie_Chart.png', transparent=True)
-# plt.show()
-
-# fig2, ax2 = plt.subplots()
-# ax2.pie(county_v, explode=county_e, labels=county_l, autopct='%1.1f%%',
-#         shadow=True, startangle=90, radius=2)
-# ax2.axis('equal')
-# plt.title('Vehicle Accidents by County in California')
-# plt.savefig('County_Pie.png', transparent=True)
-
-
-# plt.show()
-
-# fig3, ax3 = plt.subplots()
-# ax3.pie(severity_v,
-#         shadow=True, startangle=90)
-# plt.legend(loc='best', labels=['%s, %1.1f%%' % (l, 100*s/total) for l, s in zip(severity_l, severity_v)])
-# ax3.axis('equal')
-# plt.title('Severity of Accidents')
-# plt.savefig('Severity_Pie.png', transparent=True)
-# plt.show()
+def severity_pie(CA_data,path):
+    severity_count=pd.DataFrame(CA_data.groupby('Severity')['ID'].count())
+    severity_l,severity_v=get_data(severity_count,'ID')
+    total=sum(severity_v)
+    fig3, ax3 = plt.subplots()
+    ax3.pie(severity_v,
+        shadow=True, startangle=90)
+    plt.legend(loc='best', labels=['%s, %1.1f%%' % (l, 100*s/total) for l, s in zip(severity_l, severity_v)])
+    ax3.axis('equal')
+    plt.title('Severity of Accidents')
+    plt.savefig(path+ 'Severity_Pie.png', transparent=True)
+    plt.show()
 
